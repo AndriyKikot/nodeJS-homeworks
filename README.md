@@ -1,1 +1,1 @@
-# nodeJS-hw-01-node-basics
+# nodeJS-hw-01-basics
