@@ -9,7 +9,7 @@ const { __dirname } = createDirname(import.meta.url);
 const contactsPath = path.join(__dirname, '../db/contacts.json');
 
 
-async function listContacts() {
+export async function listContacts() {
     try {
         const data = await fs.readFile(contactsPath);
         const parseData = JSON.parse(data.toString());
@@ -19,7 +19,7 @@ async function listContacts() {
     }
 };
 
-async function getContactById(contactId) {
+export async function getContactById(contactId) {
     try {
         const data = await fs.readFile(contactsPath);
         const parseData = JSON.parse(data.toString());
@@ -35,7 +35,7 @@ async function getContactById(contactId) {
     }
 };
 
-function removeContact(contactId) {
+export async function removeContact(contactId) {
     try {
         const data = await fs.readFile(contactsPath);
         const parseData = JSON.parse(data.toString());
@@ -53,7 +53,7 @@ function removeContact(contactId) {
     }
 };
 
-function addContact(name, email, phone) {
+export async function addContact(name, email, phone) {
     try {
         const data = await fs.readFile(contactsPath);
         const parseData = JSON.parse(data.toString());
@@ -66,4 +66,4 @@ function addContact(name, email, phone) {
     }
 }
 
-export default { listContacts, getContactById, removeContact, addContact };
+// export default { listContacts, getContactById, removeContact, addContact };
