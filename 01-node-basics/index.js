@@ -16,8 +16,8 @@ function invokeOptions(options) {
     } else if (options.get) {
         const id = Number(options.get);
         getContactById(id);
-    } else if (options.delete) {
-        const id = Number(options.delete);
+    } else if (options.remove) {
+        const id = Number(options.remove);
         removeContact(id);
     } else if (options.add) {
         const { name, email, phone } = options;
@@ -25,6 +25,6 @@ function invokeOptions(options) {
     } else {
         console.warn('\x1B[31m Unknown action type!');
     }
-}
+};
 
 invokeOptions(options);

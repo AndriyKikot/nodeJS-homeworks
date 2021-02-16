@@ -1,6 +1,6 @@
 import * as fs from "fs/promises";
 import * as path from "path";
-import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
 
 import { handleError } from '../libs/handlerror.js';
 import createDirname from '../libs/dirname.js';
@@ -15,7 +15,7 @@ export async function listContacts() {
         const parseData = JSON.parse(data.toString());
         console.table(parseData);
     } catch (error) {
-        handleError(error)
+        handleError(error);
     }
 };
 
@@ -39,11 +39,12 @@ export async function removeContact(contactId) {
     try {
         const data = await fs.readFile(contactsPath);
         const parseData = JSON.parse(data.toString());
-        const contact = parseData.filter(contact => contact.id === contactId);
+        const contact = parseData.filter(contact => contact.id !== contactId);
 
         if (contact.length !== parseData.length) {
             fs.writeFile(contactsPath, JSON.stringify(contact));
             console.log("Contact was removed.");
+            console.table(contact);
         } else {
             console.log("Contact was not found.");
             return;
@@ -58,12 +59,11 @@ export async function addContact(name, email, phone) {
         const data = await fs.readFile(contactsPath);
         const parseData = JSON.parse(data.toString());
 
-        parseData.push({ id: uuid(), name, email, phone });
+        parseData.push({ id: uuidv4(), name, email, phone });
         fs.writeFile(contactsPath, JSON.stringify(parseData));
         console.log("Contact was added.");
+        console.table(parseData);
     } catch (error) {
         handleError(error);
     }
-}
-
-// export default { listContacts, getContactById, removeContact, addContact };
+};
